@@ -1,0 +1,13 @@
+/* @tailwind base; */
+/* @tailwind utilities; */
+/* @import "tailwindcss/preflight";
+@import "tailwindcss/utilities";  */
+
+.active {
+      color: #149eca;
+      font-weight: bold;
+      background-color:#006eaa ;
+      border-radius: 50%;
+      padding: .5em;
+}
+

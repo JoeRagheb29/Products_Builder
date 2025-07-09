@@ -1,20 +1,27 @@
+import { useState } from 'react';
 import './App.css'
-import ProductCard from './productCard.tsx';
+import Button from './components/UI/Button';
+import Cards from './components/cards';
+import Modal from './components/UI/Modal';
 
-function App() {
+const App = () => {
+
+  const [isOpen, setIsOpen] = useState(false);
+  /* Handle Modal */
+  function openModal() { setIsOpen(true); }
+  function closeModal() { setIsOpen(false); }
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 bg-gray-100">
-      <ProductCard src="https://www.pixelstalk.net/wp-content/uploads/image10/Cool-4K-Car-Wallpaper-with-the_art_of_car_painting_involves_simple_geometric_shapes.jpg" />
-      <ProductCard src="https://c4.wallpaperflare.com/wallpaper/803/674/527/car-vehicle-audi-black-cars-night-hd-wallpaper-preview.jpg" />
-      <ProductCard src="https://c4.wallpaperflare.com/wallpaper/516/849/295/aston-martin-dbc-concept-cars-picturesque-car-pictures-desktop-wallpaper-preview.jpg" />
-      <ProductCard src="https://www.pixelstalk.net/wp-content/uploads/image10/Cool-4K-Car-Wallpaper-with-the_art_of_car_painting_involves_simple_geometric_shapes.jpg" />
-      <ProductCard src="https://www.pixelstalk.net/wp-content/uploads/image10/Cool-4K-Car-Wallpaper-with-the_art_of_car_painting_involves_simple_geometric_shapes.jpg" />
-      <ProductCard src="https://www.pixelstalk.net/wp-content/uploads/image10/Cool-4K-Car-Wallpaper-with-the_art_of_car_painting_involves_simple_geometric_shapes.jpg" />
-      <ProductCard src="https://www.pixelstalk.net/wp-content/uploads/image10/Cool-4K-Car-Wallpaper-with-the_art_of_car_painting_involves_simple_geometric_shapes.jpg" />
-      <ProductCard src="https://www.pixelstalk.net/wp-content/uploads/image10/Cool-4K-Car-Wallpaper-with-the_art_of_car_painting_involves_simple_geometric_shapes.jpg" />
-      <ProductCard src="https://www.pixelstalk.net/wp-content/uploads/image10/Cool-4K-Car-Wallpaper-with-the_art_of_car_painting_involves_simple_geometric_shapes.jpg" />
-      <ProductCard src="https://www.pixelstalk.net/wp-content/uploads/image10/Cool-4K-Car-Wallpaper-with-the_art_of_car_painting_involves_simple_geometric_shapes.jpg" />
+    <div className="px-5 container text-black">
+      <h1 className="text-3xl text-center py-5">My Product Builder</h1>
+      <Button width="w-fit" onClick={openModal} className="rounded-md bg-black/20 hover:bg-black/50 px-4 py-2 text-sm font-medium text-white">Add Product</Button>
+      <Cards />
+      <Modal title={"منور يا جوو"} description={"الوصف هيتكتب هنا"} isOpen={isOpen} closeModal={closeModal}>
+        <div className="flex flex-row items-center gap-2">
+          <Button className="bg-gray-700" onClick={closeModal}>Cancel</Button>
+          <Button className="bg-blue-600" onClick={closeModal}>Add</Button>
+        </div>
+      </Modal>
     </div>
   )
 }
