@@ -1,8 +1,10 @@
-import React from 'react'
+import React from 'react';
 import { NavLink } from 'react-router-dom'
 import './App.css'
 
-const NavBar = () => {
+
+
+function NavBar() {
   return (
     <div className='Nav flex justify-around items-center bg-gray-300 p-3'>
       <NavLink className={' hover:bg-gray-400'} to="/" end>Home</NavLink>
