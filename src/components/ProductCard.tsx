@@ -7,7 +7,7 @@ function ProductCard({product}) {
 
   return (
     <div className="border-2 border-gray-500 m-5 ">
-      <Image src={product.imageURL}  alt={`img`+product.id}/> 
+      <Image src={product.imageURL} alt={`img`+product.id}/> 
       <div className="content px-3 py-1">
         <h1 className="text-xl py-2">{product.title}</h1>
         <p><TextSlicer txt={product.description} max={120}/></p>
