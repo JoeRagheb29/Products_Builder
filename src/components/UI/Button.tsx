@@ -9,7 +9,7 @@ interface IProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 
 function Button({children, className, color = "text-white", width = "w-full", ...rest}: IProps) {
   return (
-    <button className={`${width} p-2 rounded-md ${className} ${color}`}  {...rest}>{children}</button>
+    <button className={`p-2 rounded-md cursor-pointer ${width} ${className} ${color}`}  {...rest}>{children}</button>
   )
 }
 

@@ -1,12 +1,15 @@
 import React from 'react'
 import '../App.css'
 import ProductCard from './ProductCard';
-import {productList} from "../data/index";
-import Modal from './UI/Modal';
+import { IProduct } from '../interfaces';
 
-const Cards = () => {
+interface IProps {
+  products: IProduct[];
+}
 
-  const rendering = productList.map(product => <ProductCard key={product.id} product={product} />);
+const Cards = ({ products }: IProps) => {
+
+  const rendering = products.map(product => <ProductCard key={product.id} product={product} />);
 
   return (
     <>
@@ -17,7 +20,7 @@ const Cards = () => {
   )
 }
 
-export default Cards
+export default Cards;
 
 
 
