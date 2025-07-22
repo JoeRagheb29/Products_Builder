@@ -4,6 +4,7 @@ import Button from './UI/Button';
 import TextSlicer from '../utitlies/textslicer';
 import { IProduct } from '../interfaces';
 import ColorCircle from './UI/ColorCircle';
+import { categories } from '../data';
 
 
 
@@ -31,12 +32,11 @@ function ProductCard({product , ...rest } : iprop) {
         <h1 className="text-xl py-2">{product.title}</h1>
         <p><TextSlicer txt={product.description} max={120}/></p>
         <div className="colors flex my-2">
-          {product.colors.map((color)=>
-            <ColorCircle key={color} color={color} {...rest} />)}
+          {product.colors.map((color) => <ColorCircle key={color} color={color} {...rest} />)}
         </div>
         <div className="price flex justify-between">
           <p className='font-bold text-xl'>{product.price}$</p>
-          <Image className="rounded-full w-6 h-6" src='https://www.pixelstalk.net/wp-content/uploads/image10/Cool-4K-Car-Wallpaper-with-the_art_of_car_painting_involves_simple_geometric_shapes.jpg' alt="img1"/>
+          <Image className="rounded-full w-6 h-6" src={product.category.imageURL} alt="img1"/>
         </div>
         <div className="btns flex gap-1 my-2">
           <Button className='bg-violet-800 hover:bg-violet-900'>EDIT</Button>

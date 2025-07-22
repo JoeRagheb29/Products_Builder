@@ -7,10 +7,11 @@ import Input from './components/UI/Input';
 import ErrorMsg from './components/UI/ErrorMsg';
 import ColorCircle from './components/UI/ColorCircle';
 import Select from './components/UI/Select';
-import { colors, formInputsList, productList } from './data';
+import { categories, colors, formInputsList, productList } from './data';
 import { IProduct } from './interfaces';
 import Validation from './Validations';
 import { v4 as uuid } from "uuid";
+import { CheckIcon } from '@heroicons/react/24/solid'
 
 function App() {
 
@@ -25,7 +26,6 @@ function App() {
       imageURL: ""
     }
   };
-  
   const [isOpen, setIsOpen] = useState(false);
   const [productData, setProductData] = useState<IProduct>(defaultObject);
   const [hasErrors , setHasErrors] = useState({
@@ -35,7 +35,9 @@ function App() {
     imageURL: ""
   });
   const [tempColors, setTempColors] = useState<string[]>([]);
+  const [iconColorArr, setIconColorArr] = useState<string[]>([]);
   const [products , setProduct] = useState(productList);
+  const [selectedCategory, setSelectedCategory] = useState(categories[0]);
 
   /* Handle Modal */
   const openModal = () => setIsOpen(true);
@@ -64,18 +66,34 @@ function App() {
       return;
     }
 
+    if(tempColors.length === 0) {
+      alert("Please select at least one color");
+      return;
+    }
+
     setProduct((prevProducts) => [{ id: uuid(),
         title: productData.title,
         description: productData.description,
         imageURL: productData.imageURL,
         price: productData.price,
-        colors: tempColors,
+        colors: productData.colors,
         category: productData.category
       } , ...prevProducts ]
     );
 
+    setProductData(defaultObject);
+    setTempColors([]);
+    setIconColorArr([]);
     closeModal();
   }
+
+  useEffect(() => {
+    console.log("products[0]: ", products[0])} 
+    , [products])
+
+  useEffect(() => {
+    console.log("productData: ", productData)}
+     , [productData])
 
   function cancelHandler(e:PointerEvent<HTMLButtonElement>) {
     e.preventDefault();
@@ -83,15 +101,27 @@ function App() {
     closeModal();
   }
 
-  // the statements below written in the useState because the acyncrounous issues 
+  // the statements below written in the useState for toggling in the asynchronous UI state
   function ColorHandler(color : string) {
-    setTempColors((prevColors) => {
+    setIconColorArr((prevColor) => (
+      prevColor.includes(color) ? 
+      prevColor.filter((item) => item !== color) : [...prevColor, color]
+    ));
 
-      return prevColors.includes(color) ? 
-        prevColors.filter((item) => item !== color)  :  [...prevColors, color]
-    });
+    setTempColors((prevColors) => (
+      prevColors.includes(color) ? 
+      prevColors.filter((item) => item !== color)  :  [...prevColors, color]
+    ));
   }
 
+  useEffect(() => {
+    setProductData({
+      ... productData, colors: tempColors
+    });
+    console.log("tempColors before the last update: ", tempColors);
+  }, [tempColors])
+
+  
   // Example as a API (but it local file)
   let inputRendering = formInputsList.map((input) =>
     {return <div key={input.id} className="flex flex-col space-y-0.5">
@@ -101,7 +131,12 @@ function App() {
               { hasErrors[input.name] && <ErrorMsg errorMsg={hasErrors[input.name]} />}
             </div> });
 
-
+  useEffect(() => {
+    setProductData({
+      ... productData, category: selectedCategory
+    });
+  console.log("selectedCategory before the update: ", selectedCategory)
+  }, [selectedCategory])
 
   return (
     <div className="container mx-auto text-black">
@@ -112,11 +147,15 @@ function App() {
       <Cards products={products} />
       <Modal title={"Add New Product"} isOpen={isOpen} closeModal={closeModal}>
         <form className="flex flex-col space-y-2.5" onSubmit={submitHandler}>
+
           {inputRendering}
+          
+          <Select selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />
           <div className="flex my-1.5 cursor-pointer">{colors.map((color) =>
-            <ColorCircle key={color} color={color} onClick={() => ColorHandler(color)} />)}
+            <ColorCircle key={color} color={color} onClick={() => ColorHandler(color)}>
+              {iconColorArr && iconColorArr.includes(color) && <CheckIcon className="absolute inset-0 z-8 m-auto h-4 w-4 text-white" />}
+            </ColorCircle>)}
           </div>
-          <Select />
           <div className="flex flex-wrap my-1.5 space-x-1 p-0.5 rounded-md cursor-pointer">{tempColors.map((color) => 
             <span key={color} className={`block m-0.5 p-0.5 rounded-md text-sky-50 `} style={{backgroundColor: color}}>{color}</span>)}
           </div>
