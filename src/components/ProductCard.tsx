@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Image from './UI/Image';
 import Button from './UI/Button';
 import TextSlicer from '../utitlies/textslicer';
@@ -6,24 +6,26 @@ import { IProduct } from '../interfaces';
 import ColorCircle from './UI/ColorCircle';
 import { categories } from '../data';
 
-
-
-
 interface iprop extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  product: IProduct
-
+  products,
+  product: IProduct,
+  setProductToEdit: (product : IProduct) => void ,
+  setIsOpenEdit,
+  ProductToEdit,
+  idx,
+  setProductEditIdx?,
 }
 
-// function ColorCircle({ color , ...rest }: iprop) {
-//   return (
-//       <span className={`block mx-0.5 rounded-full w-6 h-6 `} style={{ backgroundColor:color}} {...rest}></span>
-//   )
-// }
 
-
-
-
-function ProductCard({product , ...rest } : iprop) {
+const ProductCard = ({products, product, setProductToEdit, setIsOpenEdit, ProductToEdit, idx, setProductEditIdx , ...rest } : iprop) => {
+  
+  function onEditHandler() {
+    console.log(products);
+    console.log(product);
+    setProductToEdit(product);
+    setIsOpenEdit(true);
+    setProductEditIdx(idx);
+  }
 
   return (
     <div className="border-2 border-gray-500 m-5 ">
@@ -39,11 +41,11 @@ function ProductCard({product , ...rest } : iprop) {
           <Image className="rounded-full w-6 h-6" src={product.category.imageURL} alt="img1"/>
         </div>
         <div className="btns flex gap-1 my-2">
-          <Button className='bg-violet-800 hover:bg-violet-900'>EDIT</Button>
-          <Button className='bg-red-800 hover:bg-red-900'>DELETE</Button>
+          <Button className='bg-violet-800 hover:bg-violet-900' onClick={onEditHandler}>EDIT</Button>
+          <Button className='bg-red-800 hover:bg-red-900' >DELETE</Button>
         </div>
       </div>
-    </div>
+    </div>   
   )
 }
 

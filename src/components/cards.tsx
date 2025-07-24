@@ -3,13 +3,20 @@ import '../App.css'
 import ProductCard from './ProductCard';
 import { IProduct } from '../interfaces';
 
-interface IProps {
+interface IProps extends React.HTMLAttributes<HTMLDivElement> {
   products: IProduct[];
+  setProduct: React.Dispatch<React.SetStateAction<IProduct[]>>;
+  setIsOpenEdit: React.Dispatch<React.SetStateAction<IProduct[]>>;
+  ProductToEdit;
+  setModal;
+  setProductEditIdx?;
 }
 
-const Cards = ({ products }: IProps) => {
 
-  const rendering = products.map(product => <ProductCard key={product.id} product={product} />);
+const Cards = ({ products , ProductToEdit , setProductToEdit , setIsOpenEdit, setProductEditIdx}) => {
+
+  const rendering = products.map((product, idx) => <ProductCard key={product.id} products={products} product={product} 
+    setProductToEdit={setProductToEdit} setIsOpenEdit={setIsOpenEdit} ProductToEdit={ProductToEdit} idx={idx} setProductEditIdx={setProductEditIdx}  />);
 
   return (
     <>

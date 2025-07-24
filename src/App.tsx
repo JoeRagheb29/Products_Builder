@@ -1,55 +1,56 @@
-import { useState , ChangeEvent, PointerEvent , FormEvent, useEffect, useSyncExternalStore } from 'react';
+import { useState , ChangeEvent, PointerEvent , FormEvent, useEffect } from 'react';
 import './App.css'
 import Cards from './components/cards';
 import Button from'./components/UI/Button';
-import Modal from './components/UI/Modal';
 import Input from './components/UI/Input';
 import ErrorMsg from './components/UI/ErrorMsg';
-import ColorCircle from './components/UI/ColorCircle';
-import Select from './components/UI/Select';
 import { categories, colors, formInputsList, productList } from './data';
 import { IProduct } from './interfaces';
 import Validation from './Validations';
 import { v4 as uuid } from "uuid";
-import { CheckIcon } from '@heroicons/react/24/solid'
+import AllModal from './components/AllModal';
 
-function App() {
+const defaultObject = {
+  title:"",
+  description:"",
+  price:"",
+  imageURL:"",
+  colors: [],
+  category: {
+    name: "",
+    imageURL: ""
+  }
+};
 
-  const defaultObject = {
-    title:"",
-    description:"",
-    price:"",
-    imageURL:"",
-    colors: [],
-    category: {
-      name: "",
-      imageURL: ""
-    }
-  };
+const App = () => {
+  /* STATES */
   const [isOpen, setIsOpen] = useState(false);
   const [productData, setProductData] = useState<IProduct>(defaultObject);
-  const [hasErrors , setHasErrors] = useState({
-    title: "",
-    description: "",
-    price: "",
-    imageURL: ""
-  });
-  const [tempColors, setTempColors] = useState<string[]>([]);
-  const [iconColorArr, setIconColorArr] = useState<string[]>([]);
+  const [hasErrors , setHasErrors] = useState({title: "", description: "", price: "", imageURL: ""});
   const [products , setProduct] = useState(productList);
   const [selectedCategory, setSelectedCategory] = useState(categories[0]);
-
-  /* Handle Modal */
-  const openModal = () => setIsOpen(true);
-  const closeModal = () => setIsOpen(false);
-
-
+  const [ProductToEdit, setProductToEdit] = useState<IProduct>(defaultObject);
+  const [iconColorArr, setIconColorArr] = useState<string[]>([]);
+  const [tempColors, setTempColors] = useState<string[]>([]);
+  const [isOpenEdit, setIsOpenEdit] = useState(false);
+  const [productEditIdx , setProductEditIdx] = useState<number>(0);
+  
+  /* FUNCTIONS HANDLERS  */
+  function openModal() { setIsOpen(true); };
+  function closeModal() { setIsOpen(false); setIsOpenEdit(false); };
+  
   function onChangeHandler(e:ChangeEvent<HTMLInputElement>) {
     let { name , value } = e.target;
     setProductData({...productData, [name]:value});
     setHasErrors({...hasErrors, [name]: ""});
   }
-
+ 
+  function onChangeEditHandler(e:ChangeEvent<HTMLInputElement>) {
+    let { name , value } = e.target;
+    setProductToEdit({...ProductToEdit, [name]:value});
+    setHasErrors({...hasErrors, [name]: ""});
+  }
+  
   function submitHandler(e:FormEvent<HTMLFormElement>) {
     e.preventDefault();
     // detect if the rules of error is valid or not and return it as an object to errors variable
@@ -87,55 +88,74 @@ function App() {
     closeModal();
   }
 
-  useEffect(() => {
-    console.log("products[0]: ", products[0])} 
-    , [products])
+  function submitEditHandler(e:FormEvent<HTMLFormElement>) {
+    e.preventDefault();
 
-  useEffect(() => {
-    console.log("productData: ", productData)}
-     , [productData])
+    let errors = Validation(ProductToEdit);
+    setHasErrors(errors);
 
+    const isValid = Object.values(errors).every((error) => error === "");
+    if(!isValid) {
+      return;
+    }
+
+    if(tempColors.length === 0) {
+      alert("Please select at least one color");
+      return;
+    }
+
+    const updatedProducts = [ ...products];
+    updatedProducts[productEditIdx] = ProductToEdit;
+    setProduct(updatedProducts);
+
+    closeModal();
+  }
+  
   function cancelHandler(e:PointerEvent<HTMLButtonElement>) {
     e.preventDefault();
     setProductData(defaultObject);
     closeModal();
+
+    console.log("مش ؤاضي يقفل")
   }
 
-  // the statements below written in the useState for toggling in the asynchronous UI state
   function ColorHandler(color : string) {
+    // the statements below written in the useState for toggling in the asynchronous UI state
     setIconColorArr((prevColor) => (
       prevColor.includes(color) ? 
       prevColor.filter((item) => item !== color) : [...prevColor, color]
     ));
-
+    
     setTempColors((prevColors) => (
       prevColors.includes(color) ? 
       prevColors.filter((item) => item !== color)  :  [...prevColors, color]
     ));
-  }
+  }  
 
-  useEffect(() => {
-    setProductData({
-      ... productData, colors: tempColors
-    });
-    console.log("tempColors before the last update: ", tempColors);
-  }, [tempColors])
 
-  
   // Example as a API (but it local file)
-  let inputRendering = formInputsList.map((input) =>
+  const inputRendering = formInputsList.map((input) =>
     {return <div key={input.id} className="flex flex-col space-y-0.5">
               <label htmlFor={input.id}>Enter {input.label}</label>
               <Input id={input.id} name={input.name} type={input.type} 
                 onChange={onChangeHandler} value={productData[input.name]}/>
               { hasErrors[input.name] && <ErrorMsg errorMsg={hasErrors[input.name]} />}
-            </div> });
+      </div> });
+
+  const EditInputRendering = formInputsList.map((input) =>
+    (  <div className="flex flex-col space-y-0.5">
+          <label htmlFor={input.id} >Enter {input.label}</label>
+          <Input id={input.id} name={input.name} type={input.type} 
+              onChange={onChangeEditHandler} value={ProductToEdit[input.name]} />
+              { hasErrors[input.name] && <ErrorMsg errorMsg={hasErrors[input.name]} />} 
+      </div>))
 
   useEffect(() => {
-    setProductData({
-      ... productData, category: selectedCategory
-    });
-  console.log("selectedCategory before the update: ", selectedCategory)
+    setProductData({...productData, colors: tempColors});
+  }, [tempColors])
+
+  useEffect(() => {
+      setProductData({... productData, category: selectedCategory});
   }, [selectedCategory])
 
   return (
@@ -144,27 +164,15 @@ function App() {
       <Button width="w-fit" onClick={openModal} className="flex rounded-md 
       bg-fuchsia-500 hover:bg-fuchsia-600 px-4 py-2 mx-auto text-sm font-medium
       text-white">Build New Product</Button>
-      <Cards products={products} />
-      <Modal title={"Add New Product"} isOpen={isOpen} closeModal={closeModal}>
-        <form className="flex flex-col space-y-2.5" onSubmit={submitHandler}>
+      <Cards products={products} ProductToEdit={ProductToEdit} setProductToEdit={setProductToEdit} setIsOpenEdit={setIsOpenEdit} setProductEditIdx={setProductEditIdx} />
 
-          {inputRendering}
-          
-          <Select selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />
-          <div className="flex my-1.5 cursor-pointer">{colors.map((color) =>
-            <ColorCircle key={color} color={color} onClick={() => ColorHandler(color)}>
-              {iconColorArr && iconColorArr.includes(color) && <CheckIcon className="absolute inset-0 z-8 m-auto h-4 w-4 text-white" />}
-            </ColorCircle>)}
-          </div>
-          <div className="flex flex-wrap my-1.5 space-x-1 p-0.5 rounded-md cursor-pointer">{tempColors.map((color) => 
-            <span key={color} className={`block m-0.5 p-0.5 rounded-md text-sky-50 `} style={{backgroundColor: color}}>{color}</span>)}
-          </div>
-          <div className="flex flex-row space-x-2.5 my-1.5">
-            <Button className="bg-gray-700 hover:bg-gray-800" onClick={cancelHandler}>Cancel</Button>
-            <Button className="bg-blue-600 hover:bg-blue-700">Submit</Button>
-          </div>
-        </form>
-      </Modal>
+      <AllModal title={"Add New Product"} isOpen={isOpen} closeModal={closeModal} submitingHandler={submitHandler}
+                rendering={inputRendering} selectedCategory={selectedCategory} colors={colors} setSelectedCategory={setSelectedCategory} 
+                cancelHandler={cancelHandler} tempColors={tempColors} ColorHandler={ColorHandler} iconColorArr={iconColorArr}/>
+
+      <AllModal title={"Edit Exist Product"} isOpen={isOpenEdit} closeModal={closeModal} submitingHandler={submitEditHandler} setProductEditIdx={setProductEditIdx}
+                rendering={EditInputRendering} selectedCategory={selectedCategory} colors={colors} setSelectedCategory={setSelectedCategory}
+                cancelHandler={cancelHandler} tempColors={tempColors} ColorHandler={ColorHandler} iconColorArr={iconColorArr}/>
     </div>
   )
 }
