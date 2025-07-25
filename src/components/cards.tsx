@@ -13,7 +13,7 @@ interface IProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 
-const Cards = ({ products , ProductToEdit , setProductToEdit , setIsOpenEdit, setProductEditIdx}) => {
+const Cards = ({ products , ProductToEdit , setProductToEdit , setIsOpenEdit, setProductEditIdx }) => {
 
   const rendering = products.map((product, idx) => <ProductCard key={product.id} products={products} product={product} 
     setProductToEdit={setProductToEdit} setIsOpenEdit={setIsOpenEdit} ProductToEdit={ProductToEdit} idx={idx} setProductEditIdx={setProductEditIdx}  />);

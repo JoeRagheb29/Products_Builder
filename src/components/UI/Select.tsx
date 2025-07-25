@@ -6,7 +6,7 @@ import { categories } from '../../data'
 
 
 
-function Select({ selectedCategory , setSelectedCategory }: { selectedCategory: { id: string, name: string, imageURL: string }, setSelectedCategory: (category: { id: string, name: string, imageURL: string }) => void }) {
+function Select({ selectedCategory , setSelectedCategory }: { selectedCategory: {name: string, imageURL: string }, setSelectedCategory: (category: { id: string, name: string, imageURL: string }) => void }) {
 
 
   return (
