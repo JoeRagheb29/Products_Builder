@@ -9,7 +9,7 @@ export default function HeroSection({ScrollToRef}) {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-[url('./assets/BGhero.jpg')] bg-no-repeat bg-cover bg-center relative">
       <NavBar scrollHandler={scrollHandler} />
       <div className="flex min-h-screen items-center">  
       <section className="flex flex-col-reverse md:flex-row w-full items-center justify-between px-6 md:px-16 py-16">
@@ -21,7 +21,7 @@ export default function HeroSection({ScrollToRef}) {
             An interactive dashboard to manage your product catalog — with ease and clarity.
           </p>
           <Button onClick={scrollHandler}
-           width="w-fit" className="mt-6 px-6 py-3 bg-violet-800 hover:bg-violet-900 text-white rounded-md shadow transition duration-300">
+           width="w-fit" className="mt-6 px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-md shadow transition duration-300">
             Get Started
           </Button>
         </div>

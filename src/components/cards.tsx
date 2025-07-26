@@ -8,14 +8,14 @@ interface IProps extends React.HTMLAttributes<HTMLDivElement> {
   setProduct: React.Dispatch<React.SetStateAction<IProduct[]>>;
   setIsOpenEdit: React.Dispatch<React.SetStateAction<IProduct[]>>;
   ProductToEdit;
-  setModal;
   setProductEditIdx?;
+  setConfirmToOpen,
 }
 
 
-const Cards = ({ products , ProductToEdit , setProductToEdit , setIsOpenEdit, setProductEditIdx }) => {
+const Cards = ({ products , ProductToEdit , setProductToEdit , setIsOpenEdit, setProductEditIdx , setConfirmToOpen }) => {
 
-  const rendering = products.map((product, idx) => <ProductCard key={product.id} products={products} product={product} 
+  const rendering = products.map((product, idx) => <ProductCard key={product.id} products={products} product={product} setConfirmToOpen={setConfirmToOpen}
     setProductToEdit={setProductToEdit} setIsOpenEdit={setIsOpenEdit} ProductToEdit={ProductToEdit} idx={idx} setProductEditIdx={setProductEditIdx}  />);
 
   return (

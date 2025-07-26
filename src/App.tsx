@@ -10,6 +10,8 @@ import Validation from './Validations';
 import { v4 as uuid } from "uuid";
 import AllModal from './components/AllModal';
 import HeroSection from './components/HeroSection';
+import Modal from './components/UI/Modal';
+import toast , { Toaster } from 'react-hot-toast';
 
 const defaultObject = {
   title:"",
@@ -35,12 +37,13 @@ const App = () => {
   const [tempColors, setTempColors] = useState<string[]>([]);
   const [isOpenEdit, setIsOpenEdit] = useState(false);
   const [productEditIdx , setProductEditIdx] = useState<number>(0);
+  const [openConfirm , setOpenConfirm] = useState<boolean>(false);
   
   const productRef = useRef(null);
 
   /* FUNCTIONS HANDLERS  */
   function openModal() { setIsOpen(true); };
-  function closeModal() { setIsOpen(false); setIsOpenEdit(false); };
+  function closeModal() { setIsOpen(false); setIsOpenEdit(false); setOpenConfirm(false)};
 
   function onChangeHandler(e:ChangeEvent<HTMLInputElement>) {
     let { name , value } = e.target;
@@ -102,6 +105,14 @@ const App = () => {
     setTempColors([]);
     setIconColorArr([]);
     closeModal();
+
+    toast("This item has been Added successfully",{
+      icon: "✅ ", style : {
+      backgroundColor: "black", // Tailwind gray-800
+      color: "white",
+      borderRadius: "8px",
+      padding: "10px 16px",
+    }});
   }
 
   function submitEditHandler(e:FormEvent<HTMLFormElement>) {
@@ -129,7 +140,36 @@ const App = () => {
     setTempColors([]);
     setIconColorArr([]);
     closeModal();
+
+    toast("This item has been Edited successfully",{
+      icon: "✅ ", style : {
+      backgroundColor: "black", // Tailwind gray-800
+      color: "white",
+      borderRadius: "8px",
+      padding: "10px 16px",
+    }});
   }
+
+  function confirmHandler(e:PointerEvent<HTMLButtonElement>) {
+    setOpenConfirm(true);
+  }
+
+  function RemoveHandler() {
+    console.log("PRODUCT ID:",ProductToEdit.id);
+    const filteredProducts = products.filter(product => product.id !== ProductToEdit.id);
+    setProduct(filteredProducts);
+    closeModal();
+
+    toast("This item has been removed successfully",{
+      icon: "✅ ", style : {
+      backgroundColor: "black", // Tailwind gray-800
+      color: "white",
+      borderRadius: "8px",
+      padding: "10px 16px",
+    }
+  ,})
+  }
+  // 3ayez a3ml nts tREA EL KETABA M3 EL EDIT
 
   function cancelHandler(e:PointerEvent<HTMLButtonElement>) {
     e.preventDefault();
@@ -138,6 +178,8 @@ const App = () => {
 
     console.log("مش ؤاضي يقفل")
   }
+
+
 //.concat(ProductToEdit.colors)
 
   // Example as a API (but it local file)
@@ -169,19 +211,29 @@ const App = () => {
     <>
     <HeroSection ScrollToRef={productRef} />
     <div className="container mx-auto text-black" ref={productRef}>
-      <h1 className="text-3xl text-center py-5">My Product Builder</h1>     
+      <h1 className="text-3xl text-center py-5">My Product Builder</h1>
       <Button width="w-fit" onClick={openModal} className="flex rounded-md 
-      bg-fuchsia-500 hover:bg-fuchsia-600 px-4 py-2 mx-auto text-sm font-medium
+        bg-indigo-600 hover:bg-indigo-700 px-6 py-3 mx-auto text-sm font-medium
       text-white">Build New Product</Button>
-      <Cards products={products} ProductToEdit={ProductToEdit} setProductToEdit={setProductToEdit} setIsOpenEdit={setIsOpenEdit} setProductEditIdx={setProductEditIdx} />
-
+      <Cards products={products} ProductToEdit={ProductToEdit} setProductToEdit={setProductToEdit} setIsOpenEdit={setIsOpenEdit} setProductEditIdx={setProductEditIdx} setConfirmToOpen={confirmHandler} />
       <AllModal title={"Add New Product"} isOpen={isOpen} closeModal={closeModal} submitingHandler={submitHandler} colors={colors} 
                 rendering={inputRendering} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} 
                 cancelHandler={cancelHandler} colorsArr={tempColors} ColorHandler={ColorHandler} iconColorArr={iconColorArr}/>
 
       <AllModal title={"Edit Exist Product"} isOpen={isOpenEdit} closeModal={closeModal} submitingHandler={submitEditHandler} colors={colors} setProductEditIdx={setProductEditIdx}
                 rendering={EditInputRendering} selectedCategory={ProductToEdit.category} setSelectedCategory={(value) => setProductToEdit({...ProductToEdit ,category: value})}
-                cancelHandler={cancelHandler} colorsArr={tempColors.concat(ProductToEdit.colors)} ColorHandler={ColorHandler} iconColorArr={iconColorArr}/>
+                cancelHandler={cancelHandler} colorsArr={tempColors.concat(ProductToEdit.colors)} ColorHandler={ColorHandler} iconColorArr={iconColorArr}/>  
+      
+      <Modal isOpen={openConfirm} closeModal={closeModal}>
+        <h1 className="text-2xl font-medium ">Are you sure you want to remove this product?</h1>
+
+        <div className="flex justify-center gap-2 mt-12 mb-2 ">
+          <Button width="w-full" onClick={RemoveHandler} className="bg-red-500 hover:bg-red-600">YES</Button>
+          <Button width="w-full" onClick={closeModal} className="bg-gray-500 hover:bg-gray-600">NO</Button>
+        </div>
+      </Modal>
+
+      <Toaster />
     </div>
     </>
   )

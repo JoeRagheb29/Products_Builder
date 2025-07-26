@@ -7,17 +7,18 @@ import ColorCircle from './UI/ColorCircle';
 import { categories } from '../data';
 
 interface iprop extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  products,
-  product: IProduct,
-  setProductToEdit: (product : IProduct) => void ,
-  setIsOpenEdit,
+  products: IProduct[];
+  product: IProduct;
+  setProductToEdit: (product : IProduct) => void;
+  setIsOpenEdit: (e : boolean) => void;
   ProductToEdit,
-  idx,
+  idx: number;
   setProductEditIdx?,
+  setConfirmToOpen: () => void;
 }
 
 
-const ProductCard = ({products, product, setProductToEdit, setIsOpenEdit, ProductToEdit, idx, setProductEditIdx,  ...rest } : iprop) => {
+const ProductCard = ({products, product, setProductToEdit, setIsOpenEdit, ProductToEdit, idx, setProductEditIdx, setConfirmToOpen, ...rest } : iprop) => {
   
   function onEditHandler() {
     setProductToEdit(product);
@@ -25,9 +26,9 @@ const ProductCard = ({products, product, setProductToEdit, setIsOpenEdit, Produc
     setProductEditIdx(idx);
   }
 
-  function onDeleteHandler() {
+  function prepareToRemove() {
     setProductToEdit(product);
-    setProductEditIdx(idx);
+    setConfirmToOpen();
   }
 
   return (
@@ -44,8 +45,8 @@ const ProductCard = ({products, product, setProductToEdit, setIsOpenEdit, Produc
           <Image className="rounded-full w-6 h-6" src={product.category.imageURL} alt="img1"/>
         </div>
         <div className="btns w-full flex gap-1 my-2">
-          <Button className='bg-violet-800 hover:bg-violet-900' onClick={onEditHandler}>EDIT</Button>
-          <Button className='bg-red-800 hover:bg-red-900' onClick={onDeleteHandler} >DELETE</Button>
+          <Button className='bg-blue-600 hover:bg-blue-700' onClick={onEditHandler}>EDIT</Button>
+          <Button className='bg-red-600 hover:bg-red-700' onClick={prepareToRemove}>DELETE</Button>
         </div>
       </div>
     </div>   

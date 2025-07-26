@@ -41,8 +41,8 @@ function AllModal({title , isOpen , rendering , closeModal , submitingHandler , 
             <span key={color} className={`block m-0.5 p-0.5 rounded-md text-sky-50 `} style={{backgroundColor: color}}>{color}</span>)}
           </div>
           <div className="flex flex-row space-x-2.5 my-1.5">
-            <Button className="bg-gray-700 hover:bg-gray-800" onClick={cancelHandler}>Cancel</Button>
-            <Button className="bg-blue-600 hover:bg-blue-700">Submit</Button>
+            <Button className="bg-gray-500 hover:bg-gray-600" onClick={cancelHandler}>Cancel</Button>
+            <Button className="bg-green-600 hover:bg-green-700">Submit</Button>
           </div>
         </form>
       </Modal>

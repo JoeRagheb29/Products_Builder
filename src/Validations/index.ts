@@ -25,7 +25,7 @@ function Validation(Product : IProduct) {
   }
 
   if(!Product.imageURL.trim() || !ValidURL(Product.imageURL)) {
-    errors.imageURL = "Valid Image URL is required." + Product.imageURL;
+    errors.imageURL = "Valid Image URL is required as http://www.example.com/image.jpg";
   }
   return errors;
 }
