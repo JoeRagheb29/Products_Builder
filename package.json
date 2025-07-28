@@ -13,6 +13,12 @@
     "@headlessui/react": "^2.2.4",
     "@heroicons/react": "^2.2.0",
     "@tailwindcss/vite": "^4.1.4",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "framer-motion": "^12.23.11",
+    "fs": "^0.0.1-security",
+    "node": "^20.19.4",
+    "nodemon": "^3.1.10",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hot-toast": "^2.5.2",
@@ -37,5 +43,18 @@
     "tailwindcss": "^4.1.11",
     "typescript": "^5.8.3",
     "vite": "^6.2.0"
-  }
+  },
+  "description": "This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.",
+  "main": "eslint.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JoeRagheb29/Products_Builder.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JoeRagheb29/Products_Builder/issues"
+  },
+  "homepage": "https://github.com/JoeRagheb29/Products_Builder#readme"
 }

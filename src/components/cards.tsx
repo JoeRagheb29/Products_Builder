@@ -2,6 +2,7 @@ import React from 'react'
 import '../App.css'
 import ProductCard from './ProductCard';
 import { IProduct } from '../interfaces';
+import { motion } from 'framer-motion';
 
 interface IProps extends React.HTMLAttributes<HTMLDivElement> {
   products: IProduct[];
@@ -16,7 +17,7 @@ interface IProps extends React.HTMLAttributes<HTMLDivElement> {
 const Cards = ({ products , ProductToEdit , setProductToEdit , setIsOpenEdit, setProductEditIdx , setConfirmToOpen }) => {
 
   const rendering = products.map((product, idx) => <ProductCard key={product.id} products={products} product={product} setConfirmToOpen={setConfirmToOpen}
-    setProductToEdit={setProductToEdit} setIsOpenEdit={setIsOpenEdit} ProductToEdit={ProductToEdit} idx={idx} setProductEditIdx={setProductEditIdx}  />);
+    setProductToEdit={setProductToEdit} setIsOpenEdit={setIsOpenEdit} ProductToEdit={ProductToEdit} idx={idx} setProductEditIdx={setProductEditIdx} />);
 
   return (
     <>

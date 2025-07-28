@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react'
+import './../App.css'
 import Image from './UI/Image';
 import Button from './UI/Button';
 import TextSlicer from '../utitlies/textslicer';
 import { IProduct } from '../interfaces';
 import ColorCircle from './UI/ColorCircle';
-import { categories } from '../data';
+import { AnimatePresence, motion } from "framer-motion";
 
 interface iprop extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   products: IProduct[];
@@ -15,12 +16,13 @@ interface iprop extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   idx: number;
   setProductEditIdx?,
   setConfirmToOpen: () => void;
+
 }
 
 
 const ProductCard = ({products, product, setProductToEdit, setIsOpenEdit, ProductToEdit, idx, setProductEditIdx, setConfirmToOpen, ...rest } : iprop) => {
   
-  function onEditHandler() {
+  function prepareToEdit() {
     setProductToEdit(product);
     setIsOpenEdit(true);
     setProductEditIdx(idx);
@@ -32,7 +34,10 @@ const ProductCard = ({products, product, setProductToEdit, setIsOpenEdit, Produc
   }
 
   return (
-    <div className="flex flex-col border-2 border-gray-300 shadow-xl rounded-sm m-5 ">
+    <motion.div className="flex flex-col border-2 border-gray-300  rounded-sm m-5 transition hover:shadow-2xl cusShadow "
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -30 }}>
       <Image src={product.imageURL} alt={`img`+product.id}/> 
       <div className="content px-3 py-1 flex flex-col flex-grow">
         <h1 className="text-xl py-2">{product.title}</h1>
@@ -45,11 +50,11 @@ const ProductCard = ({products, product, setProductToEdit, setIsOpenEdit, Produc
           <Image className="rounded-full w-6 h-6" src={product.category.imageURL} alt="img1"/>
         </div>
         <div className="btns w-full flex gap-1 my-2">
-          <Button className='bg-blue-600 hover:bg-blue-700' onClick={onEditHandler}>EDIT</Button>
+          <Button className='bg-blue-600 hover:bg-blue-700' onClick={prepareToEdit}>EDIT</Button>
           <Button className='bg-red-600 hover:bg-red-700' onClick={prepareToRemove}>DELETE</Button>
         </div>
       </div>
-    </div>   
+    </motion.div>   
   )
 }
 

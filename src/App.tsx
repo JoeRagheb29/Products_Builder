@@ -23,14 +23,15 @@ const defaultObject = {
     name: "",
     imageURL: ""
   }
-};
+}; 
+
 
 const App = () => {
   /* STATES */
   const [isOpen, setIsOpen] = useState(false);
   const [productData, setProductData] = useState<IProduct>(defaultObject);
   const [hasErrors , setHasErrors] = useState({title: "", description: "", price: "", imageURL: ""});
-  const [products , setProduct] = useState(productList);
+  const [products , setProduct] = useState<IProduct[]>([]);
   const [selectedCategory, setSelectedCategory] = useState(categories[0]);
   const [ProductToEdit, setProductToEdit] = useState<IProduct>(defaultObject);
   const [iconColorArr, setIconColorArr] = useState<string[]>([]);
@@ -44,6 +45,59 @@ const App = () => {
   /* FUNCTIONS HANDLERS  */
   function openModal() { setIsOpen(true); };
   function closeModal() { setIsOpen(false); setIsOpenEdit(false); setOpenConfirm(false)};
+
+  useEffect(() => {
+    async function fetchProducts() {
+      try {
+        fetch("http://localhost:5000/")
+        .then((res) => res.json())
+        .then((data) => {
+          const productsByIDs = data.map((product: IProduct) => ({id: uuid(), ...product})).reverse();
+          console.log("data fetched: " , productsByIDs);
+          
+          setProduct(productsByIDs);
+          });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    fetchProducts();
+  }, []);
+
+  async function addProductToDB(product : IProduct) {
+    try {
+      fetch("http://localhost:5000/" , {
+        method: "POST",
+        body: JSON.stringify(product),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      }).then((res) => res.json())
+        .then((data) => {
+          console.log("Posted Data seccessfully: ", data);
+        });
+    } catch (err) {
+      console.log("Error: " , err);
+    }
+  }
+
+  // async function EditProductfromDB(product : IProduct) {
+  //   try {
+  //     fetch(`http://localhost:5000/${product.id}` , {
+  //       method: "PUT",
+  //       body: JSON.stringify(product),
+  //       headers: {
+  //         "Content-Type": "application/json"
+  //       }
+  //     }).then((res) => res.json())
+  //       .then((data) => {
+  //         console.log("Posted Data seccessfully: ", data);
+  //       });
+  //   } catch (err) {
+  //     console.log("Error: " , err);
+  //   }
+  // }
 
   function onChangeHandler(e:ChangeEvent<HTMLInputElement>) {
     let { name , value } = e.target;
@@ -69,7 +123,7 @@ const App = () => {
       prevColors.filter((item) => item !== color) : [...prevColors, color]
     ));
   }  
-  
+
   function submitHandler(e:FormEvent<HTMLFormElement>) {
     e.preventDefault();
     // detect if the rules of error is valid or not and return it as an object to errors variable
@@ -90,34 +144,25 @@ const App = () => {
       alert("Please select at least one color");
       return;
     }
-
-    setProduct((prevProducts) => [{ id: uuid(),
-        title: productData.title,
-        description: productData.description,
-        imageURL: productData.imageURL,
-        price: productData.price,
-        colors: productData.colors,
-        category: productData.category
-      } , ...prevProducts ]
-    );
-
+    
     setProductData(defaultObject);
     setTempColors([]);
     setIconColorArr([]);
     closeModal();
-
-    toast("This item has been Added successfully",{
-      icon: "✅ ", style : {
+  
+    toast("This item has been Added to the DataBase successfully",{
+    icon: "✅ ", style : {
       backgroundColor: "black", // Tailwind gray-800
       color: "white",
       borderRadius: "8px",
       padding: "10px 16px",
     }});
+    
+    addProductToDB(productData);
   }
 
-  function submitEditHandler(e:FormEvent<HTMLFormElement>) {
+  function EditHandler(e:FormEvent<HTMLFormElement>) {
     e.preventDefault();
-
     let errors = Validation(ProductToEdit);
     setHasErrors(errors);
 
@@ -125,11 +170,14 @@ const App = () => {
     if(!isValid) {
       return;
     }
-
     if(tempColors.length === 0 && ProductToEdit.colors.length === 0) {
       alert("Please select at least one color");
       return;
     }
+
+    
+
+
 
     const updatedProducts = [ ...products];
 
@@ -169,18 +217,14 @@ const App = () => {
     }
   ,})
   }
-  // 3ayez a3ml nts tREA EL KETABA M3 EL EDIT
 
   function cancelHandler(e:PointerEvent<HTMLButtonElement>) {
     e.preventDefault();
     setProductData(defaultObject);
+    setTempColors([]);
+    setIconColorArr([]);
     closeModal();
-
-    console.log("مش ؤاضي يقفل")
   }
-
-
-//.concat(ProductToEdit.colors)
 
   // Example as a API (but it local file)
   const inputRendering: JSX.Element[] = formInputsList.map((input) =>
@@ -220,16 +264,18 @@ const App = () => {
                 rendering={inputRendering} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} 
                 cancelHandler={cancelHandler} colorsArr={tempColors} ColorHandler={ColorHandler} iconColorArr={iconColorArr}/>
 
-      <AllModal title={"Edit Exist Product"} isOpen={isOpenEdit} closeModal={closeModal} submitingHandler={submitEditHandler} colors={colors} setProductEditIdx={setProductEditIdx}
+      <AllModal title={"Edit Exist Product"} isOpen={isOpenEdit} closeModal={closeModal} submitingHandler={EditHandler} colors={colors} setProductEditIdx={setProductEditIdx}
                 rendering={EditInputRendering} selectedCategory={ProductToEdit.category} setSelectedCategory={(value) => setProductToEdit({...ProductToEdit ,category: value})}
                 cancelHandler={cancelHandler} colorsArr={tempColors.concat(ProductToEdit.colors)} ColorHandler={ColorHandler} iconColorArr={iconColorArr}/>  
       
       <Modal isOpen={openConfirm} closeModal={closeModal}>
-        <h1 className="text-2xl font-medium ">Are you sure you want to remove this product?</h1>
-
-        <div className="flex justify-center gap-2 mt-12 mb-2 ">
-          <Button width="w-full" onClick={RemoveHandler} className="bg-red-500 hover:bg-red-600">YES</Button>
-          <Button width="w-full" onClick={closeModal} className="bg-gray-500 hover:bg-gray-600">NO</Button>
+        <h1 className="text-2xl font-medium mb-5">Are you sure you want to remove this product?</h1>
+        <p className="text-sm text-gray-500">Please note that removing a product will delete it permanently
+          and all the associated data will be lost. Please confirm your decision to proceed with the removal.
+        </p>
+        <div className="flex justify-center gap-2 mt-10 mb-2 ">
+          <Button width="w-full" onClick={RemoveHandler} className="bg-red-500 hover:bg-red-600">Yes , Remove it</Button>
+          <Button width="w-full" onClick={closeModal} className="bg-gray-500 hover:bg-gray-600">Cancel</Button>
         </div>
       </Modal>
 

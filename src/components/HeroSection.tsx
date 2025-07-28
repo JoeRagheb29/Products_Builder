@@ -9,7 +9,7 @@ export default function HeroSection({ScrollToRef}) {
   };
 
   return (
-    <div className="min-h-screen bg-[url('./assets/BGhero.jpg')] bg-no-repeat bg-cover bg-center relative">
+    <div className="min-h-screen bg-[url('./assets/hero5.png')] bg-no-repeat bg-cover bg-center relative">
       <NavBar scrollHandler={scrollHandler} />
       <div className="flex min-h-screen items-center">  
       <section className="flex flex-col-reverse md:flex-row w-full items-center justify-between px-6 md:px-16 py-16">
