@@ -82,22 +82,22 @@ const App = () => {
     }
   }
 
-  // async function EditProductfromDB(product : IProduct) {
-  //   try {
-  //     fetch(`http://localhost:5000/${product.id}` , {
-  //       method: "PUT",
-  //       body: JSON.stringify(product),
-  //       headers: {
-  //         "Content-Type": "application/json"
-  //       }
-  //     }).then((res) => res.json())
-  //       .then((data) => {
-  //         console.log("Posted Data seccessfully: ", data);
-  //       });
-  //   } catch (err) {
-  //     console.log("Error: " , err);
-  //   }
-  // }
+  async function EditProductfromDB(product : IProduct) {
+    try {
+      fetch(`http://localhost:5000/${product.id}` , {
+        method: "PUT",
+        body: JSON.stringify(product),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      }).then((res) => res.json())
+        .then((data) => {
+          console.log("Product updated: ", data);
+        });
+    } catch (err) {
+      console.log("Error: " , err);
+    }
+  }
 
   function onChangeHandler(e:ChangeEvent<HTMLInputElement>) {
     let { name , value } = e.target;
@@ -109,6 +109,7 @@ const App = () => {
     let { name , value } = e.target;
     setProductToEdit({...ProductToEdit, [name]:value});
     setHasErrors({...hasErrors, [name]: ""});
+    EditProductfromDB(ProductToEdit);
   }
   
   function ColorHandler(color : string) {
@@ -175,10 +176,6 @@ const App = () => {
       return;
     }
 
-    
-
-
-
     const updatedProducts = [ ...products];
 
     updatedProducts[productEditIdx] = {...ProductToEdit , colors: tempColors.concat(ProductToEdit.colors)};
@@ -196,6 +193,7 @@ const App = () => {
       borderRadius: "8px",
       padding: "10px 16px",
     }});
+
   }
 
   function confirmHandler(e:PointerEvent<HTMLButtonElement>) {
