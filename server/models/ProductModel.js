@@ -5,10 +5,7 @@ const productSchema = new Schema({
   description: String,
   imageURL: String,
   price: { type: String, required: true },
-  colors: [ {
-      type: Schema.Types.ObjectId,
-      ref: 'colorsModel'
-    } ] ,
+  colors: [ String ],
   category: {
     name: String,
     imageURL: String,

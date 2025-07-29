@@ -1,7 +1,7 @@
 import { Schema, model } from "mongoose";
 
 const colorsSchema = new Schema({
-  color: string,
+  color: String,
 })
 
 export default model("ColorsModel", colorsSchema);

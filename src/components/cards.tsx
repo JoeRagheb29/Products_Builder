@@ -16,7 +16,7 @@ interface IProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const Cards = ({ products , ProductToEdit , setProductToEdit , setIsOpenEdit, setProductEditIdx , setConfirmToOpen }) => {
 
-  const rendering = products.map((product, idx) => <ProductCard key={product.id} products={products} product={product} setConfirmToOpen={setConfirmToOpen}
+  const rendering = products.map((product : IProduct , idx : number) => <ProductCard key={idx} products={products} product={product} setConfirmToOpen={setConfirmToOpen}
     setProductToEdit={setProductToEdit} setIsOpenEdit={setIsOpenEdit} ProductToEdit={ProductToEdit} idx={idx} setProductEditIdx={setProductEditIdx} />);
 
   return (

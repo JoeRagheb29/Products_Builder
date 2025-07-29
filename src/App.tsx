@@ -52,7 +52,7 @@ const App = () => {
         fetch("http://localhost:5000/")
         .then((res) => res.json())
         .then((data) => {
-          const productsByIDs = data.map((product: IProduct) => ({id: uuid(), ...product})).reverse();
+          const productsByIDs = data.map((product : IProduct) => ({...product})).reverse();
           console.log("data fetched: " , productsByIDs);
           
           setProduct(productsByIDs);
@@ -67,6 +67,8 @@ const App = () => {
 
   async function addProductToDB(product : IProduct) {
     try {
+      console.log("product before send:", product);
+
       fetch("http://localhost:5000/" , {
         method: "POST",
         body: JSON.stringify(product),
@@ -76,6 +78,7 @@ const App = () => {
       }).then((res) => res.json())
         .then((data) => {
           console.log("Posted Data seccessfully: ", data);
+          console.log("product:" ,product);
         });
     } catch (err) {
       console.log("Error: " , err);
@@ -84,7 +87,9 @@ const App = () => {
 
   async function EditProductfromDB(product : IProduct) {
     try {
-      fetch(`http://localhost:5000/${product.id}` , {
+      console.log("product: ", product);
+
+      fetch(`http://localhost:5000/${product._id}` , {
         method: "PUT",
         body: JSON.stringify(product),
         headers: {
@@ -92,7 +97,23 @@ const App = () => {
         }
       }).then((res) => res.json())
         .then((data) => {
-          console.log("Product updated: ", data);
+          console.log("Product updated from DB: ", data);
+        });
+    } catch (err) {
+      console.log("Error: " , err);
+    }
+  }
+
+  async function DeleteProductfromDB(product : IProduct) {
+    try {
+      fetch(`http://localhost:5000/${product._id}` , {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json"
+        }
+      }).then((res) => res.json())
+        .then((data) => {
+          console.log("Product deleted: ", data);
         });
     } catch (err) {
       console.log("Error: " , err);
@@ -109,7 +130,6 @@ const App = () => {
     let { name , value } = e.target;
     setProductToEdit({...ProductToEdit, [name]:value});
     setHasErrors({...hasErrors, [name]: ""});
-    EditProductfromDB(ProductToEdit);
   }
   
   function ColorHandler(color : string) {
@@ -123,15 +143,13 @@ const App = () => {
       (prevColors.includes(color) || prevColors.concat(ProductToEdit.colors).includes(color)) ? 
       prevColors.filter((item) => item !== color) : [...prevColors, color]
     ));
+
   }  
 
   function submitHandler(e:FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    // detect if the rules of error is valid or not and return it as an object to errors variable
     let errors = Validation(productData);
     console.log(errors);
-    // اكتبها بالشكل ده هنا عادي طالما انت مجهز القيمة اللي هتستخدمها لكن اوعى تطبعها ف الكونسول من هنا
-    //  عشان هتتحدث بعد الكونسول ما يظهر فمش هتبان النتيجة غير المرة الجاية
     setHasErrors(errors);
     // for submit the form if there is no errors
     const isValid = Object.values(errors).every((error) => error === "");
@@ -150,6 +168,14 @@ const App = () => {
     setTempColors([]);
     setIconColorArr([]);
     closeModal();
+
+    const product = {
+      ...productData,
+      colors: tempColors,
+      iconColor: iconColorArr,
+    }
+
+    setProduct((prevList) => [product , ...prevList]);
   
     toast("This item has been Added to the DataBase successfully",{
     icon: "✅ ", style : {
@@ -181,19 +207,20 @@ const App = () => {
     updatedProducts[productEditIdx] = {...ProductToEdit , colors: tempColors.concat(ProductToEdit.colors)};
     setProduct(updatedProducts);
     
-    setProductData(defaultObject);
-    setTempColors([]);
-    setIconColorArr([]);
-    closeModal();
-
     toast("This item has been Edited successfully",{
       icon: "✅ ", style : {
-      backgroundColor: "black", // Tailwind gray-800
-      color: "white",
-      borderRadius: "8px",
-      padding: "10px 16px",
+        backgroundColor: "black", // Tailwind gray-800
+        color: "white",
+        borderRadius: "8px",
+        padding: "10px 16px",
     }});
+    
+    EditProductfromDB(updatedProducts[productEditIdx]);
 
+    setProductData(defaultObject);
+    closeModal();
+    setTempColors([]);
+    setIconColorArr([]);
   }
 
   function confirmHandler(e:PointerEvent<HTMLButtonElement>) {
@@ -201,19 +228,19 @@ const App = () => {
   }
 
   function RemoveHandler() {
-    console.log("PRODUCT ID:",ProductToEdit.id);
-    const filteredProducts = products.filter(product => product.id !== ProductToEdit.id);
+    console.log("PRODUCT ID:",ProductToEdit._id);
+    const filteredProducts = products.filter(product => product._id !== ProductToEdit._id);
     setProduct(filteredProducts);
     closeModal();
-
     toast("This item has been removed successfully",{
       icon: "✅ ", style : {
-      backgroundColor: "black", // Tailwind gray-800
-      color: "white",
-      borderRadius: "8px",
-      padding: "10px 16px",
-    }
-  ,})
+        backgroundColor: "black", // Tailwind gray-800
+        color: "white",
+        borderRadius: "8px",
+        padding: "10px 16px",
+      }
+      ,})
+    DeleteProductfromDB(ProductToEdit);
   }
 
   function cancelHandler(e:PointerEvent<HTMLButtonElement>) {
