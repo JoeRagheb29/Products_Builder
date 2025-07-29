@@ -3,18 +3,17 @@ import cors from "cors";
 import fs from "fs";
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
-// import { mongoose } from "mongoose";
+import { mongoose } from "mongoose";
 
-// mongoose.connect("mongodb+srv://joe:2005@youssefcluster.320ensf.mongodb.net/?retryWrites=true&w=majority&appName=YoussefCluster")
-//     .then(() => 
-//       console.log("Connected to MongoDB دااااااااارت يا صيييييييع")
-//     ).catch(err => console.error("erorr ", err));
+mongoose.connect("mongodb+srv://joe:2005@youssefcluster.320ensf.mongodb.net/?retryWrites=true&w=majority&appName=YoussefCluster")
+    .then(() => 
+      console.log("Connected to MongoDB دااااااااارت يا صيييييييع")
+    ).catch(err => console.error("erorr ", err));
+import productsModel from './models/ProductModel.js' ;
 
-// import productsModel from './models/ProductModel.js' ;
-
-// productsModel.find().then((data) => {
-//   console.log("Fetched products from DB:", data);
-// });
+productsModel.find().then((data) => {
+  console.log("Fetched products from DB:", data);
+});
 
 
 

@@ -17,6 +17,8 @@
     "express": "^5.1.0",
     "framer-motion": "^12.23.11",
     "fs": "^0.0.1-security",
+    "mongodb": "^6.18.0",
+    "mongoose": "^8.16.5",
     "node": "^20.19.4",
     "nodemon": "^3.1.10",
     "react": "^19.0.0",

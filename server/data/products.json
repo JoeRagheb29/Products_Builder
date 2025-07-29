@@ -67,8 +67,7 @@
       "name": "Nike",
       "imageURL": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
     }
-  }
-,
+  },
   {
     "id": "5",
     "title": "Casual Men Clothes",
@@ -164,6 +163,21 @@
     ],
     "category": {
       "id": "ddf6f8eb-7305-4120-a87d-55dbdaed6264",
+      "name": "PC Desktop",
+      "imageURL": "https://images.unsplash.com/photo-1593640408182-31c70c8268f5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1142&q=80"
+    }
+  },
+  {
+    "title": "testt",
+    "description": "test for console",
+    "price": "12000",
+    "imageURL": "https://images.unsplash.com/photo-1682686581580-d99b0230064e?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "colors": [
+      "#FF6E31",
+      "#A31ACB"
+    ],
+    "category": {
+      "id": "9e4a0b14-9645-4891-b390-3dc1cc473faa",
       "name": "PC Desktop",
       "imageURL": "https://images.unsplash.com/photo-1593640408182-31c70c8268f5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1142&q=80"
     }
