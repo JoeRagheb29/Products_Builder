@@ -4,7 +4,6 @@ import { IFormInput } from "../interfaces";
 
 export const productList: IProduct[] = [
   {
-    id: uuid(),
     title: "Nike Shoes",
     description:
       "As luxury T-Shirt is just as distinctive and can be trimmed with premium materials like Nappa leather and carbon fiber.",
@@ -30,7 +29,6 @@ export const productList: IProduct[] = [
     },
   },
   {
-    id: uuid(),
     title: "2022 Genesis GV70: Nominee",
     description:
       "As luxury brands go, South Korea’s Genesis is still in its infancy, having sold its first cars (as an independent Hyundai spinoff), the G80 and G90 sedans, for the 2017 model year. Despite its relative youth, Genesis has had a string of successes: We named the automaker’s G70 sports sedan our Best of 2019 award winner, and its GV80 mid-size SUV was a nominee last year for our Best of the Year award. New for 2022, the GV70 compact luxury SUV impresses on a number of fronts. Sleek exterior styling bridges the gap between a traditional SUV and the coupelike SUV look that’s increasingly popular among luxury marques. The cabin is just as distinctive and can be trimmed with premium materials like Nappa leather and carbon fiber.",
@@ -45,7 +43,6 @@ export const productList: IProduct[] = [
     },
   },
   {
-    id: uuid(),
     title: "Chevrolet Spark. 995cc Petrol",
     description:
       "As luxury brands go, South Korea’s Genesis is still in its infancy, having sold its first cars (as an independent Hyundai spinoff), the G80 and G90 sedans, for the 2017 model year. Despite its relative youth, Genesis has had a string of successes: We named the automaker’s G70 sports sedan our Best of 2019 award winner, and its GV80 mid-size SUV was a nominee last year for our Best of the Year award. New for 2022, the GV70 compact luxury SUV impresses on a number of fronts. Sleek exterior styling bridges the gap between a traditional SUV and the coupelike SUV look that’s increasingly popular among luxury marques. The cabin is just as distinctive and can be trimmed with premium materials like Nappa leather and carbon fiber.",
@@ -60,7 +57,6 @@ export const productList: IProduct[] = [
     },
   },
   {
-    id: uuid(),
     title: "Casual Men Clothes",
     description:
       "As luxury T-Shirt is just as distinctive and can be trimmed with premium materials like Nappa leather and carbon fiber.",
@@ -75,7 +71,6 @@ export const productList: IProduct[] = [
     },
   },
   {
-    id: uuid(),
     title: "Nike Shoes",
     description:
       "As luxury T-Shirt is just as distinctive and can be trimmed with premium materials like Nappa leather and carbon fiber.",
@@ -101,7 +96,6 @@ export const productList: IProduct[] = [
     },
   },
   {
-    id: uuid(),
     title: "2022 Genesis GV70: Nominee",
     description:
       "As luxury brands go, South Korea’s Genesis is still in its infancy, having sold its first cars (as an independent Hyundai spinoff), the G80 and G90 sedans, for the 2017 model year. Despite its relative youth, Genesis has had a string of successes: We named the automaker’s G70 sports sedan our Best of 2019 award winner, and its GV80 mid-size SUV was a nominee last year for our Best of the Year award. New for 2022, the GV70 compact luxury SUV impresses on a number of fronts. Sleek exterior styling bridges the gap between a traditional SUV and the coupelike SUV look that’s increasingly popular among luxury marques. The cabin is just as distinctive and can be trimmed with premium materials like Nappa leather and carbon fiber.",
@@ -116,7 +110,6 @@ export const productList: IProduct[] = [
     },
   },
   {
-    id: uuid(),
     title: "Chevrolet Spark. 995cc Petrol",
     description:
       "As luxury brands go, South Korea’s Genesis is still in its infancy, having sold its first cars (as an independent Hyundai spinoff), the G80 and G90 sedans, for the 2017 model year. Despite its relative youth, Genesis has had a string of successes: We named the automaker’s G70 sports sedan our Best of 2019 award winner, and its GV80 mid-size SUV was a nominee last year for our Best of the Year award. New for 2022, the GV70 compact luxury SUV impresses on a number of fronts. Sleek exterior styling bridges the gap between a traditional SUV and the coupelike SUV look that’s increasingly popular among luxury marques. The cabin is just as distinctive and can be trimmed with premium materials like Nappa leather and carbon fiber.",
@@ -131,7 +124,6 @@ export const productList: IProduct[] = [
     },
   },
   {
-    id: uuid(),
     title: "Casual Men Clothes",
     description:
       "As luxury T-Shirt is just as distinctive and can be trimmed with premium materials like Nappa leather and carbon fiber.",
@@ -176,7 +168,7 @@ export const formInputsList: IFormInput[] = [
 ];
 
 export const colors: string[] = [
-  "#a855f7",
+  "#e855f7",
   "#2563eb",
   "#84D2C5",
   "#13005A",
@@ -186,8 +178,9 @@ export const colors: string[] = [
   "#6C4AB6",
   "#CB1C8D",
   "#000000",
-  "#645CBB",
-  "#3C8A21",
+  "#658FBB",
+  "#8c8A21",
+  
 ];
 
 
