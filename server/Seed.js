@@ -1,15 +1,10 @@
 import mongoose from "mongoose";
 import ProductsModel from "./models/ProductModel.js";
-
 await mongoose.connect("mongodb+srv://joe:2005@youssefcluster.320ensf.mongodb.net/?retryWrites=true&w=majority&appName=YoussefCluster");
-
-// const seedProducts = [
-
 
 
 const  seedProducts = ([
-  {
-    title: "Mechanical Keyboard",
+  { title: "Mechanical Keyboard",
     description: "RGB backlit keyboard",
     imageURL: "https://images.unsplash.com/photo-1626958390898-162d3577f293?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     price: "85",
@@ -43,8 +38,7 @@ const  seedProducts = ([
       imageURL: "https://images.unsplash.com/photo-1583121274602-3e2820c69888?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
     }
   },
-  {
-    title: "Bookshelf",
+  { title: "Bookshelf",
     description: "5-layer solid wood",
     imageURL: "https://images.unsplash.com/photo-1593430980369-68efc5a5eb34?q=80&w=1185&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     price: "220",
@@ -101,8 +95,7 @@ const  seedProducts = ([
       imageURL: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
     }
   },
-  {
-    title: "Nike Backpack",
+  { title: "Nike Backpack",
     description: "Travel and sports use",
     imageURL: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
     price: "70",
@@ -112,8 +105,7 @@ const  seedProducts = ([
       imageURL: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
     }
   },
-  {
-    title: "Casual Shirt",
+  { title: "Casual Shirt",
     description: "Formal and stylish",
     imageURL: "https://images.unsplash.com/photo-1605542659134-3e06b9c7d8cc?q=80&w=627&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     price: "55",
@@ -123,8 +115,7 @@ const  seedProducts = ([
       imageURL: "https://images.unsplash.com/photo-1593030761757-71fae45fa0e7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
     }
   },
-  {
-    title: "Foldable Table",
+  { title: "Foldable Table",
     description: "Space-saving furniture",
     imageURL: "https://images.unsplash.com/photo-1718049719698-e2a64788589e?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     price: "110",
@@ -134,8 +125,7 @@ const  seedProducts = ([
       imageURL: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
     }
   },
-  { 
-    title: "Running Shoes Pro",
+  { title: "Running Shoes Pro",
     description: "Breathable with great grip",
     imageURL: "https://images.unsplash.com/photo-1542325059222-f8a794ccf28d?q=80&w=764&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     price: "120",
@@ -145,8 +135,7 @@ const  seedProducts = ([
       imageURL: "https://images.unsplash.com/photo-1542325059222-f8a794ccf28d?q=80&w=764&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     }
   },
-  { 
-    title: "Office Chair",
+  { title: "Office Chair",
     description: "Ergonomic mesh chair",
     imageURL: "https://images.unsplash.com/photo-1688578735427-994ecdea3ea4?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     price: "180",
@@ -186,8 +175,7 @@ const  seedProducts = ([
       imageURL: "https://images.unsplash.com/photo-1502920917128-1aa500764cbd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
     }
   },
-  {
-    title: "Sports T-Shirt",
+  { title: "Sports T-Shirt",
     description: "Dry-fit material",
     imageURL: "https://images.unsplash.com/photo-1714249090984-cbc595b0f3b8?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fHNwb3J0cyUyMFQlMjBTaGlydHxlbnwwfHwwfHx8MA%3D%3D",
     price: "65",
@@ -197,8 +185,7 @@ const  seedProducts = ([
       imageURL: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80"
     }
   },
-  {
-    title: "Luxury Sofa",
+  { title: "Luxury Sofa",
     description: "3-seater comfort design",
     imageURL: "https://images.unsplash.com/photo-1724100688254-4038b53a7567?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE5fHx8ZW58MHx8fHx8",
     price: "999",
@@ -238,8 +225,7 @@ const  seedProducts = ([
       imageURL: "https://images.unsplash.com/photo-1502920917128-1aa500764cbd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
     }
   },
-  {
-    title: "Nike Air Max",
+  { title: "Nike Air Max",
     description: "Classic running shoes",
     imageURL: "https://images.unsplash.com/photo-1662411198835-c5a151d2af9e?q=80&w=765&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     price: "140",
@@ -249,8 +235,7 @@ const  seedProducts = ([
       imageURL: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
     }
   },
-  {
-    title: "Basic Hoodie",
+  { title: "Basic Hoodie",
     description: "Winter wear for daily use",
     imageURL: "https://images.unsplash.com/photo-1517942420142-6a296f9ee4b1?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     price: "80",
@@ -260,8 +245,7 @@ const  seedProducts = ([
       imageURL: "https://images.unsplash.com/photo-1593030761757-71fae45fa0e7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
     }
   },
-  {
-    title: "Camera Tripod",
+  { title: "Camera Tripod",
     description: "Adjustable height",
     imageURL: "https://images.unsplash.com/photo-1656666273502-9950992a6702?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Q2FtZXJhJTIwVHJpcG9kfGVufDB8fDB8fHww",
     price: "35",
@@ -271,8 +255,7 @@ const  seedProducts = ([
       imageURL: "https://images.unsplash.com/photo-1502920917128-1aa500764cbd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
     }
   },
-  {
-    title: "Convertible Car",
+  { title: "Convertible Car",
     description: "Speed and luxury",
     imageURL: "https://images.unsplash.com/photo-1599024320662-f4e7e5c634b9?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     price: "15000",
