@@ -16,7 +16,7 @@ interface iprop extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   idx: number;
   setProductEditIdx?,
   setConfirmToOpen: () => void;
-
+  
 }
 
 
