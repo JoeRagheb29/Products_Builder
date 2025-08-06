@@ -12,14 +12,7 @@
   "dependencies": {
     "@headlessui/react": "^2.2.4",
     "@heroicons/react": "^2.2.0",
-<<<<<<< HEAD
-    "cors": "^2.8.5",
-    "express": "^5.1.0",
     "framer-motion": "^12.23.11",
-    "node": "^20.19.4",
-=======
-    "framer-motion": "^12.23.11",
->>>>>>> fix-working-version
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hot-toast": "^2.5.2",
