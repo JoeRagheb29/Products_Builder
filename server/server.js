@@ -2,18 +2,31 @@ import express, { json } from "express";
 import cors from "cors";
 import { mongoose } from "mongoose";
 import ProductModel from "./models/ProductModel.js";
+<<<<<<< HEAD
 import dotenv from "dotenv";
 dotenv.config();
+=======
+import dotenv from 'dotenv';
+>>>>>>> fix-working-version
 
 const app = express();
 app.use(cors());
 app.use(json());
 
+<<<<<<< HEAD
 const mongoURI = process.env.MONGODB_URI; // 👈 ناخد الرابط من متغير البيئة
 
 mongoose.connect(mongoURI)
  .then(() => console.log('✅ Connected to MongoDB'))
  .catch((err) => console.error('❌ MongoDB Error:', err));
+=======
+dotenv.config();
+const mongoURI = process.env.MONGODB_URI;
+
+mongoose.connect(mongoURI)
+.then(() => console.log('✅ Connected to MongoDB'))
+.catch((err) => console.error('❌ MongoDB Error:', err));
+>>>>>>> fix-working-version
 
 ProductModel.find().then((data) => {
   console.log("data fetched successfully");
