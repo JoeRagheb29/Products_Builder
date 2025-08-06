@@ -12,15 +12,7 @@
   "dependencies": {
     "@headlessui/react": "^2.2.4",
     "@heroicons/react": "^2.2.0",
-    "@tailwindcss/vite": "^4.1.4",
-    "cors": "^2.8.5",
-    "express": "^5.1.0",
     "framer-motion": "^12.23.11",
-    "fs": "^0.0.1-security",
-    "mongodb": "^6.18.0",
-    "mongoose": "^8.16.5",
-    "node": "^20.19.4",
-    "nodemon": "^3.1.10",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hot-toast": "^2.5.2",
@@ -30,6 +22,7 @@
   "devDependencies": {
     "@eslint/js": "^9.21.0",
     "@tailwindcss/postcss": "^4.1.11",
+    "@tailwindcss/vite": "^4.1.4",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
     "@types/uuid": "^10.0.0",
@@ -37,6 +30,7 @@
     "@typescript-eslint/parser": "^8.31.0",
     "@vitejs/plugin-react": "^4.3.4",
     "autoprefixer": "^10.4.21",
+    "concurrently": "^9.2.0",
     "eslint": "^9.21.0",
     "eslint-plugin-react-hooks": "^5.1.0",
     "eslint-plugin-react-refresh": "^0.4.19",
@@ -45,18 +39,5 @@
     "tailwindcss": "^4.1.11",
     "typescript": "^5.8.3",
     "vite": "^6.2.0"
-  },
-  "description": "This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.",
-  "main": "eslint.config.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/JoeRagheb29/Products_Builder.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/JoeRagheb29/Products_Builder/issues"
-  },
-  "homepage": "https://github.com/JoeRagheb29/Products_Builder#readme"
+  }
 }

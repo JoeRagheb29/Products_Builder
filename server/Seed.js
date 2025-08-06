@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
 import ProductsModel from "./models/ProductModel.js";
+// import MONGODB_URI from 
 
-await mongoose.connect("mongodb+srv://joe:2005@youssefcluster.320ensf.mongodb.net/?retryWrites=true&w=majority&appName=YoussefCluster");
+await mongoose.connect(MONGODB_URI);
 
 // const seedProducts = [
 

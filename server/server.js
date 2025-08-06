@@ -2,16 +2,18 @@ import express, { json } from "express";
 import cors from "cors";
 import { mongoose } from "mongoose";
 import ProductModel from "./models/ProductModel.js";
+import dotenv from 'dotenv';
 
 const app = express();
 app.use(cors());
 app.use(json());
 
-mongoose
-  .connect("mongodb+srv://joe:2005@youssefcluster.320ensf.mongodb.net/?retryWrites=true&w=majority&appName=YoussefCluster")
-  .then(() => 
-    console.log("Connected to MongoDB "))
-  .catch(err => console.error("erorr ", err));
+dotenv.config();
+const mongoURI = process.env.MONGODB_URI;
+
+mongoose.connect(mongoURI)
+.then(() => console.log('✅ Connected to MongoDB'))
+.catch((err) => console.error('❌ MongoDB Error:', err));
 
 ProductModel.find().then((data) => {
   console.log("data fetched successfully");
