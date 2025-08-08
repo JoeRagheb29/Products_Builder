@@ -49,7 +49,7 @@ const App = () => {
   useEffect(() => {
     async function fetchProducts() {
       try {
-        fetch("http://localhost:5000/")
+        fetch("https://productsbuilder-production.up.railway.app/")
         .then((res) => res.json())
         .then((data) => {
           const productsByIDs = data.map((product : IProduct) => ({...product})).reverse();
@@ -69,7 +69,7 @@ const App = () => {
     try {
       console.log("product before send:", product);
 
-      fetch("http://localhost:5000/" , {
+      fetch("https://productsbuilder-production.up.railway.app/" , {
         method: "POST",
         body: JSON.stringify(product),
         headers: {
@@ -89,7 +89,7 @@ const App = () => {
     try {
       console.log("product: ", product);
 
-      fetch(`http://localhost:5000/${product._id}` , {
+      fetch(`https://productsbuilder-production.up.railway.app/${product._id}` , {
         method: "PUT",
         body: JSON.stringify(product),
         headers: {
@@ -106,7 +106,7 @@ const App = () => {
 
   async function DeleteProductfromDB(product : IProduct) {
     try {
-      fetch(`http://localhost:5000/${product._id}` , {
+      fetch(`https://productsbuilder-production.up.railway.app/${product._id}` , {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json"

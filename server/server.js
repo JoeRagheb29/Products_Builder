@@ -8,6 +8,8 @@ dotenv.config();
 const app = express();
 app.use(cors());
 app.use(json());
+app.use(express.static('public'));
+
 
 const mongoURI = process.env.MONGODB_URI; // 👈 ناخد الرابط من متغير البيئة
 
