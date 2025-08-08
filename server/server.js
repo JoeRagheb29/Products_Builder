@@ -15,9 +15,11 @@ mongoose.connect(mongoURI)
  .then(() => console.log('✅ Connected to MongoDB'))
  .catch((err) => console.error('❌ MongoDB Error:', err));
 
-ProductModel.find().then((data) => {
-  console.log("data fetched successfully");
-});
+ProductModel.find()
+  .then((data) => {
+    console.log("data fetched successfully");
+  })
+  .catch((err) => console.log(err));
 
 app.post("/", async (req, res) => {
   try {

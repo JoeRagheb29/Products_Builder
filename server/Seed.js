@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import ProductsModel from "./models/ProductModel.js";
 
-await mongoose.connect(MONGODB_URI);
+await mongoose.connect(process.env.MONGODB_URI);
 
 
 const  seedProducts = ([
