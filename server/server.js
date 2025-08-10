@@ -66,7 +66,7 @@ app.get("/:id", async (req, res)=> {
 });
 
 
-app.listen("https://productsbuilder-production.up.railway.app/",
+app.listen(process.env.PORT || 5000,
   () => {
     console.log(`Server is running on https://productsbuilder-production.up.railway.app/`);
 });
