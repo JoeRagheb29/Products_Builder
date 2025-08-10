@@ -66,6 +66,7 @@ app.get("/:id", async (req, res)=> {
 });
 
 
-app.listen(5000, () => {
-  console.log(`Server is running on http://localhost:5000`);
+app.listen("https://productsbuilder-production.up.railway.app/",
+  () => {
+    console.log(`Server is running on https://productsbuilder-production.up.railway.app/`);
 });

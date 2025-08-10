@@ -12,6 +12,7 @@ import AllModal from './components/AllModal';
 import HeroSection from './components/HeroSection';
 import Modal from './components/UI/Modal';
 import toast , { Toaster } from 'react-hot-toast';
+import Footer from './components/Footer';
 
 const defaultObject = {
   title:"",
@@ -306,6 +307,7 @@ const App = () => {
 
       <Toaster />
     </div>
+    <Footer />
     </>
   )
 }

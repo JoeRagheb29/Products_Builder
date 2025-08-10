@@ -38,7 +38,7 @@ const ProductCard = ({products, product, setProductToEdit, setIsOpenEdit, Produc
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -30 }}>
-      <Image src={product.imageURL} alt={`img`+product._id}/> 
+      <Image className='object-cover h-80' src={product.imageURL} alt={`img`+product._id}/> 
       <div className="content px-3 py-1 flex flex-col flex-grow">
         <h1 className="text-xl py-2">{product.title}</h1>
         <p><TextSlicer txt={product.description} max={120}/></p>
