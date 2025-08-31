@@ -1,4 +1,4 @@
-import React from 'react'
+import React , {memo} from 'react'
 import '../App.css'
 import ProductCard from './ProductCard';
 import { IProduct } from '../interfaces';
@@ -28,7 +28,7 @@ const Cards = ({ products , ProductToEdit , setProductToEdit , setIsOpenEdit, se
   )
 }
 
-export default Cards;
+export default memo(Cards);
 
 
 

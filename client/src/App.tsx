@@ -1,4 +1,4 @@
-import { useState , ChangeEvent, PointerEvent , FormEvent, useRef , useEffect, JSX } from 'react';
+import { useState , ChangeEvent, PointerEvent , FormEvent, useRef , useEffect, JSX , useCallback } from 'react';
 import './App.css'
 import Cards from './components/cards';
 import Button from'./components/UI/Button';
@@ -44,7 +44,7 @@ const App = () => {
   const productRef = useRef(null);
 
   /* FUNCTIONS HANDLERS  */
-  function openModal() { setIsOpen(true); };
+  const openModal = useCallback(() => setIsOpen(true),[]);
   function closeModal() { setIsOpen(false); setIsOpenEdit(false); setOpenConfirm(false)};
 
   useEffect(() => {
@@ -224,9 +224,11 @@ const App = () => {
     setIconColorArr([]);
   }
 
-  function confirmHandler(e:PointerEvent<HTMLButtonElement>) {
+  
+  const confirmHandler = useCallback((e:PointerEvent<HTMLButtonElement>)=> {
     setOpenConfirm(true);
-  }
+  },[]);
+
 
   function RemoveHandler() {
     console.log("PRODUCT ID:",ProductToEdit._id);
@@ -276,6 +278,7 @@ const App = () => {
   useEffect(() => {
       setProductData({... productData, category: selectedCategory});
   }, [selectedCategory])
+
 
   return (
     <>

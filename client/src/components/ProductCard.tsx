@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect , useCallback , useMemo , memo} from 'react'
 import './../App.css'
 import Image from './UI/Image';
 import Button from './UI/Button';
@@ -21,7 +21,7 @@ interface iprop extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 
 
 const ProductCard = ({products, product, setProductToEdit, setIsOpenEdit, ProductToEdit, idx, setProductEditIdx, setConfirmToOpen, ...rest } : iprop) => {
-  
+
   function prepareToEdit() {
     setProductToEdit(product);
     setIsOpenEdit(true);
@@ -58,4 +58,4 @@ const ProductCard = ({products, product, setProductToEdit, setIsOpenEdit, Produc
   )
 }
 
-export default ProductCard;
+export default memo(ProductCard);

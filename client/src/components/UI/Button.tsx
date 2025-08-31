@@ -1,4 +1,4 @@
-import React, { Children } from 'react'
+import React, { memo , Children } from 'react'
 import { motion } from "framer-motion";
 
 interface IProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -14,4 +14,4 @@ function Button({children, className, color = "text-white", width = "w-full", ..
   )
 }
 
-export default Button;
+export default memo(Button);

@@ -1,8 +1,8 @@
-import React from "react";
+import React , {memo} from "react";
 import Button from "./UI/Button";
 import NavBar from "./NavBar" ;
 
-export default function HeroSection({ScrollToRef}) {
+function HeroSection({ScrollToRef}) {
 
   const scrollHandler = () => {
     ScrollToRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -38,3 +38,5 @@ export default function HeroSection({ScrollToRef}) {
     </div>
   );
 }
+
+export default memo(HeroSection);
