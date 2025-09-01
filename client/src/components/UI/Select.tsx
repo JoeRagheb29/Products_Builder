@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { memo, useState } from 'react'
 import { Label, Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/react'
 import { ChevronUpDownIcon } from '@heroicons/react/16/solid'
 import { CheckIcon } from '@heroicons/react/20/solid'
@@ -50,4 +50,4 @@ function Select({ selectedCategory , setSelectedCategory }: { selectedCategory: 
   )
 }
 
-export default Select;
+export default memo(Select);

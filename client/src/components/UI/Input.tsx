@@ -1,4 +1,4 @@
-import React from 'react'
+import React , { memo } from 'react'
 import { formInputsList } from '../../data'
 
 // interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {}
@@ -9,4 +9,4 @@ function Input({...rest}) {
   )
 }
 
-export default Input
+export default memo(Input);

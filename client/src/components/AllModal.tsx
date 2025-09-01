@@ -3,7 +3,7 @@ import Select from './UI/Select';
 import ColorCircle from './UI/ColorCircle';
 import { CheckIcon } from '@heroicons/react/24/solid';
 import Button from './UI/Button';
-import { FormEvent, JSX, PointerEvent } from 'react';
+import { FormEvent, JSX, memo, PointerEvent, useCallback } from 'react';
 import { ICategory } from '../interfaces';
 
 interface IProps {
@@ -30,10 +30,10 @@ function AllModal({title , isOpen , rendering , closeModal , submitingHandler , 
 
       <Modal title={title} isOpen={isOpen} closeModal={closeModal}>
         <form className="flex flex-col space-y-2.5" onSubmit={submitingHandler}>
-          {rendering} {/* EditInputRendering | AddInputRendering */}
+          {rendering} {/*EditInputRendering | AddInputRendering*/}
           <Select selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />
           <div className="flex my-1.5 cursor-pointer">{colors.map((color) =>
-            <ColorCircle key={color} color={color} onClick={() => ColorHandler(color)}>
+            <ColorCircle key={color} color={color} onClick={useCallback(() => ColorHandler(color), [color])}>
               {iconColorArr && iconColorArr.includes(color) && <CheckIcon className="absolute inset-0 z-8 m-auto h-4 w-4 text-white" />}
             </ColorCircle>)}
           </div>
@@ -49,4 +49,4 @@ function AllModal({title , isOpen , rendering , closeModal , submitingHandler , 
   )
 }
 
-export default AllModal;
+export default memo(AllModal);
