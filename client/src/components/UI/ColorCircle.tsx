@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 
 
 interface iprop extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -13,4 +13,4 @@ function ColorCircle({ color , children, ...rest }: iprop) {
   )
 }
 
-export default ColorCircle
+export default memo(ColorCircle);

@@ -1,4 +1,4 @@
-import { useState , ChangeEvent, PointerEvent , FormEvent, useRef , useEffect, JSX } from 'react';
+import { useState , ChangeEvent, PointerEvent , FormEvent, useRef , useEffect, JSX , useCallback, useMemo } from 'react';
 import './App.css'
 import Cards from './components/cards';
 import Button from'./components/UI/Button';
@@ -44,8 +44,12 @@ const App = () => {
   const productRef = useRef(null);
 
   /* FUNCTIONS HANDLERS  */
-  function openModal() { setIsOpen(true); };
-  function closeModal() { setIsOpen(false); setIsOpenEdit(false); setOpenConfirm(false)};
+  const openModal = useCallback(() => setIsOpen(true),[]);
+  const closeModal = useCallback(() => { 
+    setIsOpen(false); 
+    setIsOpenEdit(false); 
+    setOpenConfirm(false);
+  },[]);
 
   useEffect(() => {
     async function fetchProducts() {
@@ -121,19 +125,20 @@ const App = () => {
     }
   }
 
-  function onChangeHandler(e:ChangeEvent<HTMLInputElement>) {
+  const onChangeHandler = useCallback((e:ChangeEvent<HTMLInputElement>) => {
     let { name , value } = e.target;
-    setProductData({...productData, [name]:value});
-    setHasErrors({...hasErrors, [name]: ""});
-  }
- 
-  function onChangeEditHandler(e:ChangeEvent<HTMLInputElement>) {
+
+    setProductData(prev => ({...prev, [name]:value}));
+    setHasErrors(prev => ({...prev, [name]:""}));
+  },[]);
+
+  const onChangeEditHandler = useCallback((e:ChangeEvent<HTMLInputElement>) => {
     let { name , value } = e.target;
-    setProductToEdit({...ProductToEdit, [name]:value});
-    setHasErrors({...hasErrors, [name]: ""});
-  }
-  
-  function ColorHandler(color : string) {
+    setProductToEdit(prev => ({...prev, [name]:value}));
+    setHasErrors(prev => ({...prev, [name]: ""}));
+  },[]);
+
+  const ColorHandler = (color : string) => {
     // the statements below written in the useState for toggling in the asynchronous UI state
     setIconColorArr((prevColor) => (
       (prevColor.includes(color) || prevColor.concat(ProductToEdit.colors).includes(color)) ? 
@@ -145,7 +150,7 @@ const App = () => {
       prevColors.filter((item) => item !== color) : [...prevColors, color]
     ));
 
-  }  
+  }
 
   function submitHandler(e:FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -224,11 +229,13 @@ const App = () => {
     setIconColorArr([]);
   }
 
-  function confirmHandler(e:PointerEvent<HTMLButtonElement>) {
+  
+  const confirmHandler = useCallback((e:PointerEvent<HTMLButtonElement>)=> {
     setOpenConfirm(true);
-  }
+  },[]);
 
-  function RemoveHandler() {
+
+  const RemoveHandler = () => {
     console.log("PRODUCT ID:",ProductToEdit._id);
     const filteredProducts = products.filter(product => product._id !== ProductToEdit._id);
     setProduct(filteredProducts);
@@ -244,13 +251,13 @@ const App = () => {
     DeleteProductfromDB(ProductToEdit);
   }
 
-  function cancelHandler(e:PointerEvent<HTMLButtonElement>) {
+  const cancelHandler = useCallback((e:PointerEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setProductData(defaultObject);
     setTempColors([]);
     setIconColorArr([]);
     closeModal();
-  }
+  }, []);
 
   // Example as a API (but it local file)
   const inputRendering: JSX.Element[] = formInputsList.map((input) =>
