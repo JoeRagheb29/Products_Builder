@@ -51,7 +51,7 @@ const App = () => {
     setOpenConfirm(false);
   },[]);
 
-  const API_URL = "https://products-builder-backend.vercel.app/";
+  const API_URL = "https://products-builder-api.vercel.app/";
 
   useEffect(() => {
     async function fetchProducts() {
