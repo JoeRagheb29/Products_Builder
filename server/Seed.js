@@ -1,8 +1,11 @@
 import mongoose from "mongoose";
 import ProductsModel from "./models/ProductModel.js";
 
-await mongoose.connect(process.env.MONGODB_URI);
+import dotenv from "dotenv";
+dotenv.config();
 
+await mongoose.connect(process.env.MONGODB_URI);
+console.log("Connected to MongoDB from seeds");
 
 const  seedProducts = ([
   { title: "Mechanical Keyboard",
