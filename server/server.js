@@ -18,10 +18,15 @@ mongoose.connect(mongoURI)
  .catch((err) => console.error('❌ MongoDB Error:', err));
 
 ProductModel.find()
-  .then((data) => {
-    console.log("data fetched successfully");
-  })
-  .catch((err) => console.log(err));
+.then((data) => {
+  console.log("data fetched successfully");
+})
+.catch((err) => console.log(err));
+
+app.get("/", async (req, res)=> {
+  const products = await ProductModel.find();
+  res.json(products);
+})
 
 app.post("/", async (req, res) => {
   try {
@@ -33,11 +38,6 @@ app.post("/", async (req, res) => {
     console.log(error);
     res.status(400).json({ message: "Error adding the Product to the Database" });
   }
-})
-
-app.get("/", async (req, res)=> {
-  const products = await ProductModel.find();
-  res.json(products);
 })
 
 app.put("/:id", async (req, res) => {
@@ -67,5 +67,5 @@ app.get("/:id", async (req, res)=> {
 
 
 app.listen(5000, () => {
-    console.log(`Server is running on https://products-builder-backend.vercel.app/`);
+    console.log(`Server is running on https://products-builder-backend.vercel.app/ || http://localhost:5000/ `);
 });
