@@ -3,10 +3,13 @@ import cors from "cors";
 import { mongoose } from "mongoose";
 import ProductModel from "./models/ProductModel.js";
 import dotenv from "dotenv";
+import morgan from "morgan";
+
 dotenv.config();
 
 const app = express();
 app.use(cors());
+app.use(morgan("dev"));
 app.use(json());
 app.use(express.static('public'));
 
