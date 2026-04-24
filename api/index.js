@@ -3,10 +3,13 @@ import cors from "cors";
 import { mongoose } from "mongoose";
 import ProductModel from "./models/ProductModel.js";
 import dotenv from "dotenv";
+import morgan from "morgan";
+
 dotenv.config();
 
 const app = express();
 app.use(cors());
+app.use(morgan("dev"));
 app.use(json());
 app.use(express.static('public'));
 
@@ -18,10 +21,21 @@ mongoose.connect(mongoURI)
  .catch((err) => console.error('❌ MongoDB Error:', err));
 
 ProductModel.find()
-  .then((data) => {
-    console.log("data fetched successfully");
+.then((data) => {
+  console.log("data fetched successfully");
+})
+.catch((err) => console.log(err));
+
+
+try {
+  app.get("/", async (req, res)=> {  
+    const products = await ProductModel.find();
+    res.json(products);
   })
-  .catch((err) => console.log(err));
+
+} catch (error) {
+  console.error("Error getting the products:", error);
+}
 
 app.post("/", async (req, res) => {
   try {
@@ -35,11 +49,6 @@ app.post("/", async (req, res) => {
   }
 })
 
-app.get("/", async (req, res)=> {
-  const products = await ProductModel.find();
-  res.json(products);
-})
-
 app.put("/:id", async (req, res) => {
   const productID = req.params.id;
   const updatedProductInputs = req.body;
@@ -47,7 +56,7 @@ app.put("/:id", async (req, res) => {
   const updated = await ProductModel
             .findByIdAndUpdate(productID , updatedProductInputs , {new: true});
 
-  res.json(updated , "Product updated in DBBB ya Joee");
+  res.json({ data: updated, message: "Product updated in DBBB ya Joee" });
 });
 
 app.delete("/:id", async (req, res) => {
@@ -67,5 +76,7 @@ app.get("/:id", async (req, res)=> {
 
 
 app.listen(5000, () => {
-    console.log(`Server is running on https://productsbuilder-production.up.railway.app/`);
+    console.log(`Server is running on https://products-builder-backend.vercel.app/ || http://localhost:5000/ `);
 });
+
+export default app;

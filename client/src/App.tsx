@@ -51,10 +51,12 @@ const App = () => {
     setOpenConfirm(false);
   },[]);
 
+  const API_URL = "https://products-builder-backend.vercel.app/";
+
   useEffect(() => {
     async function fetchProducts() {
       try {
-        fetch("https://productsbuilder-production.up.railway.app/")
+        fetch(`${API_URL}`)
         .then((res) => res.json())
         .then((data) => {
           const productsByIDs = data.map((product : IProduct) => ({...product})).reverse();
@@ -74,7 +76,7 @@ const App = () => {
     try {
       console.log("product before send:", product);
 
-      fetch("https://productsbuilder-production.up.railway.app/" , {
+      fetch(`${API_URL}` , {
         method: "POST",
         body: JSON.stringify(product),
         headers: {
@@ -94,7 +96,7 @@ const App = () => {
     try {
       console.log("product: ", product);
 
-      fetch(`https://productsbuilder-production.up.railway.app/${product._id}` , {
+      fetch(`${API_URL}/${product._id}` , {
         method: "PUT",
         body: JSON.stringify(product),
         headers: {
@@ -111,7 +113,7 @@ const App = () => {
 
   async function DeleteProductfromDB(product : IProduct) {
     try {
-      fetch(`https://productsbuilder-production.up.railway.app/${product._id}` , {
+      fetch(`${API_URL}/${product._id}` , {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json"
