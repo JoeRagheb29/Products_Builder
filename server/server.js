@@ -23,18 +23,16 @@ ProductModel.find()
 })
 .catch((err) => console.log(err));
 
-app.get("/", async (req, res)=> {
 
-  console.log("req:", req);
-  console.log("res:", res);
+try {
+  app.get("/", async (req, res)=> {  
+    const products = await ProductModel.find();
+    res.json(products);
+  })
 
-  const products = await ProductModel.find();
-  res.json(products);
-
-  // setTimeout(() => {
-  //   console.log("products founded successfully");
-  // }, 1000);
-})
+} catch (error) {
+  console.error("Error getting the products:", error);
+}
 
 app.post("/", async (req, res) => {
   try {
@@ -55,7 +53,7 @@ app.put("/:id", async (req, res) => {
   const updated = await ProductModel
             .findByIdAndUpdate(productID , updatedProductInputs , {new: true});
 
-  res.json(updated , "Product updated in DBBB ya Joee");
+  res.json({ data: updated, message: "Product updated in DBBB ya Joee" });
 });
 
 app.delete("/:id", async (req, res) => {
@@ -77,3 +75,5 @@ app.get("/:id", async (req, res)=> {
 app.listen(5000, () => {
     console.log(`Server is running on https://products-builder-backend.vercel.app/ || http://localhost:5000/ `);
 });
+
+export default app;

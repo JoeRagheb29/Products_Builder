@@ -47,7 +47,8 @@ const App = () => {
   function openModal() { setIsOpen(true); };
   function closeModal() { setIsOpen(false); setIsOpenEdit(false); setOpenConfirm(false)};
 
-  const API_URL = "https://products-builder-backend.vercel.app/";
+  // const API_URL = "https://products-builder-backend.vercel.app/";
+  const API_URL = "http://localhost:5000/";
 
   useEffect(() => {
     async function fetchProducts() {
