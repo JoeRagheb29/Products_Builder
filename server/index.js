@@ -24,8 +24,16 @@ ProductModel.find()
 .catch((err) => console.log(err));
 
 app.get("/", async (req, res)=> {
+
+  console.log("req:", req);
+  console.log("res:", res);
+
   const products = await ProductModel.find();
   res.json(products);
+
+  // setTimeout(() => {
+  //   console.log("products founded successfully");
+  // }, 1000);
 })
 
 app.post("/", async (req, res) => {
