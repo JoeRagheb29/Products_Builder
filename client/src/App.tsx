@@ -70,7 +70,7 @@ const App = () => {
     try {
       console.log("product before send:", product);
 
-      fetch("https://productsbuilder-production.up.railway.app/" , {
+      fetch("https://products-builder-backend.vercel.app/" , {
         method: "POST",
         body: JSON.stringify(product),
         headers: {
